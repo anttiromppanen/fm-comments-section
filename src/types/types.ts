@@ -1,4 +1,4 @@
-interface IReply {
+export interface IReply {
   id: string;
   createdAt: string;
   text: string;

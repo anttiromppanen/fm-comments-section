@@ -1,9 +1,9 @@
+import RestActionButton from "./RestActionButton";
 import LikesModule from "./LikesModule";
-import replyIcon from "../../assets/images/icon-reply.svg";
 import imageSelector from "../../helpers/helpers";
-import { IComment } from "../../types/types";
+import { IComment, IReply } from "../../types/types";
 
-function Comment({ comment }: { comment: IComment }) {
+function Comment({ comment }: { comment: IComment | IReply }) {
   return (
     <article
       className="
@@ -17,17 +17,13 @@ function Comment({ comment }: { comment: IComment }) {
             alt={comment.user}
             className="h-8 w-8"
           />
-          <p className="text-userDarkBlue font-medium">{comment.user}</p>
-          <p className="text-userGrayishBlue">{comment.createdAt}</p>
+          <div className="flex flex-wrap gap-x-4">
+            <p className="text-userDarkBlue font-medium">{comment.user}</p>
+            <p className="text-userGrayishBlue">{comment.createdAt}</p>
+          </div>
         </div>
         <div className="hidden items-center sm:flex">
-          <button
-            type="button"
-            className="flex items-center justify-center gap-x-1"
-          >
-            <img src={replyIcon} alt="Reply" />
-            <span>Reply</span>
-          </button>
+          <RestActionButton variant="reply" />
         </div>
       </div>
 
@@ -36,10 +32,7 @@ function Comment({ comment }: { comment: IComment }) {
       <div className="row-span-3 flex items-center justify-between sm:row-start-1 sm:row-end-4 sm:block">
         <LikesModule likes={comment.likes} />
         <div className="sm:hidden">
-          <button type="button" className="flex items-center gap-x-1">
-            <img src={replyIcon} alt="Reply" />
-            <span>Reply</span>
-          </button>
+          <RestActionButton variant="reply" />
         </div>
       </div>
     </article>
