@@ -1,6 +1,9 @@
 function LikesModule({ likes }: { likes: number }) {
   return (
-    <div className="bg-userVeryLightGrey flex h-full items-center rounded-lg sm:flex-col">
+    <div
+      className="
+        bg-userVeryLightGrey flex h-full items-center rounded-lg sm:mx-auto sm:h-auto sm:w-fit sm:flex-col"
+    >
       <button
         type="button"
         className="text-userPrimaryVariant px-4 py-2 font-medium"

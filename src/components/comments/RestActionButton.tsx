@@ -24,8 +24,8 @@ function RestActionButton({ variant }: Props) {
   const baseStyles = "flex items-center justify-center gap-x-2 font-medium";
   return (
     <button type="button" className={`${baseStyles} ${variantStyles[variant]}`}>
-      <img src={variantIcons[variant]} alt="Reply" />
-      <span>Reply</span>
+      <img src={variantIcons[variant]} alt={variant} />
+      <span>{variant.charAt(0).toUpperCase() + variant.slice(1)}</span>
     </button>
   );
 }
