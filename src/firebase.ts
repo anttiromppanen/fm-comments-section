@@ -8,6 +8,7 @@ const {
   VITE_STORAGE_BUCKET,
   VITE_MESSAGING_SENDER_ID,
   VITE_APP_ID,
+  VITE_DEV_DB_PORT,
 } = import.meta.env;
 
 // Your web app's Firebase configuration
@@ -25,7 +26,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 if (import.meta.env.MODE === "development") {
-  connectFirestoreEmulator(db, "localhost", 8080);
+  connectFirestoreEmulator(db, "localhost", VITE_DEV_DB_PORT);
 }
 
 export default db;
