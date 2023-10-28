@@ -13,6 +13,4 @@ export interface IComment {
   text: string;
   user: string;
   likes: number;
-  replies: IReply[];
-  replyingTo?: string;
 }

@@ -9,13 +9,7 @@ function Comments() {
         <Comment key={comment.id} comment={comment} />
       ))}
       {/* REPLIES TO COMMENT */}
-      <div className="flex flex-col gap-y-4 border-l-2 pl-4 md:ml-11 md:pl-11">
-        {data.comments.map((comment) =>
-          comment.replies.map((reply) => (
-            <Comment key={reply.id} comment={reply} />
-          )),
-        )}
-      </div>
+      <div className="flex flex-col gap-y-4 border-l-2 pl-4 md:ml-11 md:pl-11" />
     </section>
   );
 }

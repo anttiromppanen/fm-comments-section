@@ -32,11 +32,11 @@ function Comment({ comment }: { comment: CommentType }) {
         <div className="flex items-center gap-x-4">
           <img src={imageSelector(user)} alt={user} className="h-8 w-8" />
           <div className="flex flex-wrap items-center gap-x-4">
-            <p className="text-userDarkBlue font-medium">{user}</p>
+            <p className="font-medium text-userDarkBlue">{user}</p>
             {currentUser === user && (
               <div
                 className="
-            bg-userPrimary -ml-2 flex h-fit items-center justify-center p-1 text-xs leading-3
+            -ml-2 flex h-fit items-center justify-center bg-userPrimary p-1 text-xs leading-3
             text-white"
               >
                 <span className="-mt-[2px]">you</span>
@@ -50,12 +50,7 @@ function Comment({ comment }: { comment: CommentType }) {
         </div>
       </div>
 
-      <div className="text-userGrayishBlue row-span-2">
-        {comment.replyingTo && (
-          <span className="text-userPrimary font-medium">{`@${comment.replyingTo}`}</span>
-        )}{" "}
-        {text}
-      </div>
+      <div className="row-span-2 text-userGrayishBlue">{text}</div>
 
       <div className="row-span-3 flex items-center justify-between sm:row-start-1 sm:row-end-4 sm:block">
         <LikesModule likes={likes} />
