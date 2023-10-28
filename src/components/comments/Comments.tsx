@@ -1,5 +1,4 @@
 import Comment from "./Comment";
-import data from "../../data/data.json";
 import useComments from "../../hooks/useComments";
 import db from "../../firebase";
 
@@ -9,7 +8,7 @@ function Comments() {
   return (
     // COMMENT
     <section className="my-8 flex flex-col gap-y-4">
-      {data.comments.map((comment) => (
+      {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
       {/* REPLIES TO COMMENT */}

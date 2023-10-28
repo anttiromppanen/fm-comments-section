@@ -25,7 +25,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-if (import.meta.env.MODE === "development") {
+if (import.meta.env.MODE === "development" || import.meta.env.MODE === "test") {
   connectFirestoreEmulator(db, "localhost", VITE_DEV_DB_PORT);
 }
 
