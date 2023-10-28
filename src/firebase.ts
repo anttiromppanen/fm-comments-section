@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 const {
   VITE_API_KEY,
@@ -23,5 +23,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+if (import.meta.env.MODE === "development") {
+  connectFirestoreEmulator(db, "localhost", 8080);
+}
 
 export default db;
