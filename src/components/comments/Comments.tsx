@@ -4,7 +4,7 @@ import db from "../../firebase";
 
 function Comments() {
   const comments = useComments(db);
-  console.log(comments);
+
   return (
     // COMMENT
     <section className="my-8 flex flex-col gap-y-4">
