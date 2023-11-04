@@ -3,7 +3,9 @@ export interface IReply {
   createdAt: string;
   text: string;
   user: string;
+  likes: number;
   whoHasLiked: string[];
+  whoHasDisliked: string[];
   replyingTo: string;
 }
 
@@ -12,5 +14,7 @@ export interface IComment {
   createdAt: string;
   text: string;
   user: string;
+  likes: number;
   whoHasLiked: string[];
+  whoHasDisliked: string[];
 }

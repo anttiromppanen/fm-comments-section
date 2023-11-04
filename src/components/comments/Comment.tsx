@@ -8,7 +8,8 @@ const currentUser = "juliusomo";
 type CommentType = IComment | IReply;
 
 function Comment({ comment }: { comment: CommentType }) {
-  const { user, createdAt, text, whoHasLiked } = comment;
+  const { id, user, createdAt, text, likes, whoHasLiked, whoHasDisliked } =
+    comment;
 
   const restActionButtonsSelector = () => {
     if (currentUser === user) {
@@ -53,7 +54,13 @@ function Comment({ comment }: { comment: CommentType }) {
       <div className="row-span-2 text-userGrayishBlue">{text}</div>
 
       <div className="row-span-3 flex items-center justify-between sm:row-start-1 sm:row-end-4 sm:block">
-        <LikesModule likes={whoHasLiked.length} />
+        <LikesModule
+          likes={likes}
+          whoHasLiked={whoHasLiked}
+          whoHasDisliked={whoHasDisliked}
+          currentUser={currentUser}
+          commentId={id}
+        />
         <div className="sm:hidden">{restActionButtonsSelector()}</div>
       </div>
     </article>
