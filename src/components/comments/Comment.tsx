@@ -1,13 +1,12 @@
-import RestActionButton from "./RestActionButton";
-import LikesModule from "./LikesModule";
 import imageSelector from "../../helpers/helpers";
-import { IComment, IReply } from "../../types/types";
+import { IReply } from "../../types/types";
+import LikesModule from "./LikesModule";
+import RestActionButton from "./RestActionButton";
 
 const currentUser = "juliusomo";
 
-type CommentType = IComment | IReply;
 interface Props {
-  comment: CommentType;
+  comment: IReply;
   variant: "comments" | "replies";
 }
 
@@ -55,7 +54,16 @@ function Comment({ comment, variant }: Props) {
         </div>
       </div>
 
-      <div className="row-span-2 text-userGrayishBlue">{text}</div>
+      <div className="row-span-2 text-userGrayishBlue">
+        <p>
+          {variant === "replies" && (
+            <span className="font-medium text-userPrimary">
+              @{comment.replyingTo?.replyingToUser}{" "}
+            </span>
+          )}
+          {text}
+        </p>
+      </div>
 
       <div className="row-span-3 flex items-center justify-between sm:row-start-1 sm:row-end-4 sm:block">
         <LikesModule
