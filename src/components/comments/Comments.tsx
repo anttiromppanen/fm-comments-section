@@ -12,14 +12,18 @@ function Comments() {
       {comments.map((comment) => (
         <div key={comment.id}>
           <Comment comment={comment} />
+
+          {/* REPLIES TO COMMENT */}
           {comment.repliesToThisComment.map((reply: IReply) => (
-            <div className="mt-4 flex flex-col gap-y-4 border-l-2 pl-4 md:ml-11 md:pl-11">
+            <div
+              key={reply.id}
+              className="mt-4 flex flex-col gap-y-4 border-l-2 pl-4 md:ml-11 md:pl-11"
+            >
               <Comment comment={reply} />
             </div>
           ))}
         </div>
       ))}
-      {/* REPLIES TO COMMENT */}
     </section>
   );
 }
