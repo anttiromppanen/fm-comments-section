@@ -8,6 +8,7 @@ interface Props {
   whoHasDisliked: string[];
   currentUser: string;
   commentId: string;
+  variant: "comments" | "replies";
 }
 
 function LikesModule({
@@ -16,7 +17,9 @@ function LikesModule({
   commentId,
   whoHasLiked,
   whoHasDisliked,
+  variant,
 }: Props) {
+  const commentOrReplyRef = doc(db, variant, commentId);
   const currentUserHasLiked = whoHasLiked.includes(currentUser);
   const currentUserHasDisliked = whoHasDisliked.includes(currentUser);
   const {
@@ -29,30 +32,34 @@ function LikesModule({
   } = useComments(db);
 
   const handleLike = async () => {
-    const commentsRef = doc(db, "comments", commentId);
-
     if (currentUserHasLiked) {
-      await handleAddLikeWhenAlreadyLiked({ currentUser, likes, commentsRef });
+      await handleAddLikeWhenAlreadyLiked({
+        currentUser,
+        likes,
+        commentOrReplyRef,
+      });
       return null;
     }
 
     if (currentUserHasDisliked) {
-      await handleAddWhenAlreadyDisliked({ currentUser, likes, commentsRef });
+      await handleAddWhenAlreadyDisliked({
+        currentUser,
+        likes,
+        commentOrReplyRef,
+      });
       return null;
     }
 
-    await handleAddLike({ currentUser, likes, commentsRef });
+    await handleAddLike({ currentUser, likes, commentOrReplyRef });
     return null;
   };
 
   const handleDislike = async () => {
-    const commentsRef = doc(db, "comments", commentId);
-
     if (currentUserHasDisliked) {
       await handleAddDislikeWhenAlreadyDisliked({
         currentUser,
         likes,
-        commentsRef,
+        commentOrReplyRef,
       });
       return null;
     }
@@ -61,12 +68,12 @@ function LikesModule({
       await handleAddDislikeWhenAlreadyLiked({
         currentUser,
         likes,
-        commentsRef,
+        commentOrReplyRef,
       });
       return null;
     }
 
-    await handleAddDislike({ currentUser, likes, commentsRef });
+    await handleAddDislike({ currentUser, likes, commentOrReplyRef });
     return null;
   };
 

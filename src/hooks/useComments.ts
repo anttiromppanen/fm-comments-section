@@ -16,7 +16,7 @@ import { IComment } from "../types/types";
 interface IActionArgs {
   currentUser: string;
   likes: number;
-  commentsRef: DocumentReference<DocumentData, DocumentData>;
+  commentOrReplyRef: DocumentReference<DocumentData, DocumentData>;
 }
 
 const useComments = (db: Firestore) => {
@@ -25,9 +25,9 @@ const useComments = (db: Firestore) => {
   const handleAddLike = async ({
     currentUser,
     likes,
-    commentsRef,
+    commentOrReplyRef,
   }: IActionArgs) => {
-    await updateDoc(commentsRef, {
+    await updateDoc(commentOrReplyRef, {
       likes: likes + 1,
       whoHasLiked: arrayUnion(currentUser),
     });
@@ -36,9 +36,9 @@ const useComments = (db: Firestore) => {
   const handleAddLikeWhenAlreadyLiked = async ({
     currentUser,
     likes,
-    commentsRef,
+    commentOrReplyRef,
   }: IActionArgs) => {
-    await updateDoc(commentsRef, {
+    await updateDoc(commentOrReplyRef, {
       likes: likes - 1,
       whoHasLiked: arrayRemove(currentUser),
     });
@@ -47,9 +47,9 @@ const useComments = (db: Firestore) => {
   const handleAddWhenAlreadyDisliked = async ({
     currentUser,
     likes,
-    commentsRef,
+    commentOrReplyRef,
   }: IActionArgs) => {
-    await updateDoc(commentsRef, {
+    await updateDoc(commentOrReplyRef, {
       likes: likes + 2,
       whoHasDisliked: arrayRemove(currentUser),
       whoHasLiked: arrayUnion(currentUser),
@@ -59,9 +59,9 @@ const useComments = (db: Firestore) => {
   const handleAddDislike = async ({
     currentUser,
     likes,
-    commentsRef,
+    commentOrReplyRef,
   }: IActionArgs) => {
-    await updateDoc(commentsRef, {
+    await updateDoc(commentOrReplyRef, {
       likes: likes - 1,
       whoHasDisliked: arrayUnion(currentUser),
     });
@@ -70,9 +70,9 @@ const useComments = (db: Firestore) => {
   const handleAddDislikeWhenAlreadyDisliked = async ({
     currentUser,
     likes,
-    commentsRef,
+    commentOrReplyRef,
   }: IActionArgs) => {
-    await updateDoc(commentsRef, {
+    await updateDoc(commentOrReplyRef, {
       likes: likes + 1,
       whoHasDisliked: arrayRemove(currentUser),
     });
@@ -81,9 +81,9 @@ const useComments = (db: Firestore) => {
   const handleAddDislikeWhenAlreadyLiked = async ({
     currentUser,
     likes,
-    commentsRef,
+    commentOrReplyRef,
   }: IActionArgs) => {
-    await updateDoc(commentsRef, {
+    await updateDoc(commentOrReplyRef, {
       likes: likes - 2,
       whoHasLiked: arrayRemove(currentUser),
       whoHasDisliked: arrayUnion(currentUser),

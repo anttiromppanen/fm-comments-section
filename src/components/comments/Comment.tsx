@@ -6,8 +6,12 @@ import { IComment, IReply } from "../../types/types";
 const currentUser = "juliusomo";
 
 type CommentType = IComment | IReply;
+interface Props {
+  comment: CommentType;
+  variant: "comments" | "replies";
+}
 
-function Comment({ comment }: { comment: CommentType }) {
+function Comment({ comment, variant }: Props) {
   const { id, user, createdAt, text, likes, whoHasLiked, whoHasDisliked } =
     comment;
 
@@ -60,6 +64,7 @@ function Comment({ comment }: { comment: CommentType }) {
           whoHasDisliked={whoHasDisliked}
           currentUser={currentUser}
           commentId={id}
+          variant={variant}
         />
         <div className="sm:hidden">{restActionButtonsSelector()}</div>
       </div>

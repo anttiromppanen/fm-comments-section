@@ -6,6 +6,7 @@ export interface IReply {
   likes: number;
   whoHasLiked: string[];
   whoHasDisliked: string[];
+  replyingTo: string;
 }
 
 export interface IComment {
@@ -16,5 +17,4 @@ export interface IComment {
   likes: number;
   whoHasLiked: string[];
   whoHasDisliked: string[];
-  repliesToThisComment: IReply[];
 }
