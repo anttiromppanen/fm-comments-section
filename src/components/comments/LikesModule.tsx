@@ -17,7 +17,7 @@ function LikesModule({
   whoHasLiked,
   whoHasDisliked,
 }: Props) {
-  const { addLike } = useComments(db);
+  const { handleAddLike, handleAddLikeWhenAlreadyLiked } = useComments(db);
   const currentUserHasLiked = whoHasLiked.includes(currentUser);
   const currentUserHasDisliked = whoHasDisliked.includes(currentUser);
 
@@ -25,10 +25,7 @@ function LikesModule({
     const commentsRef = doc(db, "comments", commentId);
 
     if (currentUserHasLiked) {
-      await updateDoc(commentsRef, {
-        likes: likes - 1,
-        whoHasLiked: arrayRemove(currentUser),
-      });
+      await handleAddLikeWhenAlreadyLiked({ currentUser, likes, commentsRef });
       return null;
     }
 
@@ -41,7 +38,7 @@ function LikesModule({
       return null;
     }
 
-    await addLike({ currentUser, likes, commentsRef });
+    await handleAddLike({ currentUser, likes, commentsRef });
 
     return null;
   };

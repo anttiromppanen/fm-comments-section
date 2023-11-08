@@ -22,10 +22,25 @@ interface IActionArgs {
 const useComments = (db: Firestore) => {
   const [comments, setComments] = useState<IComment[]>([]);
 
-  const addLike = async ({ currentUser, likes, commentsRef }: IActionArgs) => {
+  const handleAddLike = async ({
+    currentUser,
+    likes,
+    commentsRef,
+  }: IActionArgs) => {
     await updateDoc(commentsRef, {
       likes: likes + 1,
       whoHasLiked: arrayUnion(currentUser),
+    });
+  };
+
+  const handleAddLikeWhenAlreadyLiked = async ({
+    currentUser,
+    likes,
+    commentsRef,
+  }: IActionArgs) => {
+    await updateDoc(commentsRef, {
+      likes: likes - 1,
+      whoHasLiked: arrayRemove(currentUser),
     });
   };
 
@@ -42,7 +57,7 @@ const useComments = (db: Firestore) => {
     return () => unsubsrcribe();
   }, [db]);
 
-  return { comments, addLike };
+  return { comments, handleAddLike, handleAddLikeWhenAlreadyLiked };
 };
 
 export default useComments;
