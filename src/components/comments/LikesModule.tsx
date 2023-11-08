@@ -9,6 +9,7 @@ interface Props {
   currentUser: string;
   commentId: string;
   variant: "comments" | "replies";
+  isCreatedByCurrentUser: boolean;
 }
 
 function LikesModule({
@@ -18,6 +19,7 @@ function LikesModule({
   whoHasLiked,
   whoHasDisliked,
   variant,
+  isCreatedByCurrentUser,
 }: Props) {
   const commentOrReplyRef = doc(db, variant, commentId);
   const currentUserHasLiked = whoHasLiked.includes(currentUser);
@@ -32,6 +34,8 @@ function LikesModule({
   } = useComments(db);
 
   const handleLike = async () => {
+    if (isCreatedByCurrentUser) return null;
+
     if (currentUserHasLiked) {
       await handleAddLikeWhenAlreadyLiked({
         currentUser,
@@ -55,6 +59,8 @@ function LikesModule({
   };
 
   const handleDislike = async () => {
+    if (isCreatedByCurrentUser) return null;
+
     if (currentUserHasDisliked) {
       await handleAddDislikeWhenAlreadyDisliked({
         currentUser,

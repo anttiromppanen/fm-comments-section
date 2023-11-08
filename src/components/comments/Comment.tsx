@@ -65,6 +65,7 @@ function Comment({ comment, variant }: Props) {
           currentUser={currentUser}
           commentId={id}
           variant={variant}
+          isCreatedByCurrentUser={currentUser === user}
         />
         <div className="sm:hidden">{restActionButtonsSelector()}</div>
       </div>
