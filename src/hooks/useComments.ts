@@ -67,6 +67,17 @@ const useComments = (db: Firestore) => {
     });
   };
 
+  const handleAddDislikeWhenAlreadyDisliked = async ({
+    currentUser,
+    likes,
+    commentsRef,
+  }: IActionArgs) => {
+    await updateDoc(commentsRef, {
+      likes: likes + 1,
+      whoHasDisliked: arrayRemove(currentUser),
+    });
+  };
+
   useEffect(() => {
     const q = query(collection(db, "comments"), orderBy("createdAt", "desc"));
     const unsubsrcribe = onSnapshot(q, (querySnapshot) => {
@@ -86,6 +97,7 @@ const useComments = (db: Firestore) => {
     handleAddLikeWhenAlreadyLiked,
     handleAddWhenAlreadyDisliked,
     handleAddDislike,
+    handleAddDislikeWhenAlreadyDisliked,
   };
 };
 
