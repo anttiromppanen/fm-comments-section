@@ -17,4 +17,5 @@ export interface IComment {
   likes: number;
   whoHasLiked: string[];
   whoHasDisliked: string[];
+  repliesToThisComment: IReply[];
 }

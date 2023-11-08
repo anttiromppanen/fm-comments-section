@@ -1,4 +1,4 @@
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import db from "../../firebase";
 import useComments from "../../hooks/useComments";
 
