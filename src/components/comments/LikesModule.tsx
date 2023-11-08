@@ -1,5 +1,6 @@
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import db from "../../firebase";
+import useComments from "../../hooks/useComments";
 
 interface Props {
   likes: number;
@@ -16,6 +17,7 @@ function LikesModule({
   whoHasLiked,
   whoHasDisliked,
 }: Props) {
+  const { addLike } = useComments(db);
   const currentUserHasLiked = whoHasLiked.includes(currentUser);
   const currentUserHasDisliked = whoHasDisliked.includes(currentUser);
 
@@ -39,10 +41,7 @@ function LikesModule({
       return null;
     }
 
-    await updateDoc(commentsRef, {
-      likes: likes + 1,
-      whoHasLiked: arrayUnion(currentUser),
-    });
+    await addLike({ currentUser, likes, commentsRef });
 
     return null;
   };

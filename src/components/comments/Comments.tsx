@@ -3,7 +3,7 @@ import useComments from "../../hooks/useComments";
 import db from "../../firebase";
 
 function Comments() {
-  const comments = useComments(db);
+  const { comments } = useComments(db);
 
   return (
     // COMMENT

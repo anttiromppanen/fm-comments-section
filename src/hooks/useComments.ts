@@ -1,15 +1,33 @@
 import {
+  DocumentData,
+  DocumentReference,
   Firestore,
+  arrayRemove,
+  arrayUnion,
   collection,
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { IComment } from "../types/types";
 
+interface IActionArgs {
+  currentUser: string;
+  likes: number;
+  commentsRef: DocumentReference<DocumentData, DocumentData>;
+}
+
 const useComments = (db: Firestore) => {
   const [comments, setComments] = useState<IComment[]>([]);
+
+  const addLike = async ({ currentUser, likes, commentsRef }: IActionArgs) => {
+    await updateDoc(commentsRef, {
+      likes: likes + 1,
+      whoHasLiked: arrayUnion(currentUser),
+    });
+  };
 
   useEffect(() => {
     const q = query(collection(db, "comments"), orderBy("createdAt", "desc"));
@@ -24,7 +42,7 @@ const useComments = (db: Firestore) => {
     return () => unsubsrcribe();
   }, [db]);
 
-  return comments;
+  return { comments, addLike };
 };
 
 export default useComments;
